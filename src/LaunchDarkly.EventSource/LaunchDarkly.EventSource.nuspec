@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SB-LaunchDarkly.EventSource</id>
+    <version>$version$</version>
+    <title>SB-LaunchDarkly.EventSource</title>
+    <authors>Smokeball</authors>
+    <owners>Smokeball</owners>
+    <projectUrl>https://github.com/dlbroadfoot/dotnet-eventsource</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>LaunchDarkly .NET Event Source library for Server Sent Events</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags></tags>
+  </metadata>
+</package>
