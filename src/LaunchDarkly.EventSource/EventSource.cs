@@ -114,6 +114,7 @@ namespace LaunchDarkly.EventSource
         /// <exception cref="InvalidOperationException">The method was called after the connection <see cref="ReadyState"/> was Open or Connecting.</exception>
         public async Task StartAsync()
         {
+            var errorLogged = false;
             var cancellationToken = _pendingRequest.Token;
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -122,11 +123,15 @@ namespace LaunchDarkly.EventSource
                 {
                     await ConnectToEventSourceAsync(cancellationToken);
                     _backOff.ResetReconnectAttemptCount();
+                    errorLogged = false;
                 }
                 catch (Exception e)
                 {
-                    _logger.ErrorFormat("Encountered an error connecting to EventSource: {0}", e, e.Message);
-                    _logger.Debug("", e);
+                    if (!errorLogged)
+                    {
+                        errorLogged = true;
+                        _logger.WarnFormat($"Encountered an error connecting to EventSource {e.Message}", e);
+                    }
                 }
             }
         }
