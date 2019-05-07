@@ -1,8 +1,8 @@
-﻿using Common.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using log4net;
 
 namespace LaunchDarkly.EventSource
 {

@@ -1,22 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>3.3.0</Version>
-    <TargetFrameworks>netstandard1.4;net45</TargetFrameworks>
+    <Version>3.3.1.2</Version>
+    <TargetFrameworks>net45</TargetFrameworks>
     <PackageLicenseUrl>https://raw.github.com/LaunchDarkly/dotnet-eventsource/master/LICENSE</PackageLicenseUrl>
     <AssemblyName>LaunchDarkly.EventSource</AssemblyName>
     <DebugType>portable</DebugType>
     <OutputType>Library</OutputType>
-    <PackageId>LaunchDarkly.EventSource</PackageId>
+    <PackageId>SB-LaunchDarkly.EventSource</PackageId>
     <Company>LaunchDarkly</Company>
     <Copyright>Copyright 2017 Catamorphic, Co.</Copyright>
     <Description>LaunchDarkly .NET Event Source library for Server Sent Events</Description>
     <SignAssembly>true</SignAssembly>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Common.Logging" Version="3.4.1" />
-  </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System" />
@@ -28,6 +25,12 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>../../LaunchDarkly.EventSource.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>C:\Users\dbroadfoot\.nuget\packages\log4net\1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Resources.Designer.cs">
@@ -42,6 +45,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <PackageReference Include="log4net">
+      <Version>1.2.10</Version>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
