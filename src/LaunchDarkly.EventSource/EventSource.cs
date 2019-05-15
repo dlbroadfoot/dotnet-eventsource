@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using log4net;
@@ -149,11 +150,25 @@ namespace LaunchDarkly.EventSource
                             // in case Close() was called in between the previous ReadyState check and the creation of the new token
                             return;
                         }
+
                         newRequestTokenSource = new CancellationTokenSource();
                         _currentRequestToken?.Dispose();
                         _currentRequestToken = newRequestTokenSource;
                     }
+
                     await ConnectToEventSourceAsync(newRequestTokenSource.Token);
+                }
+                catch (HttpRequestException e)
+                {
+                    if (e.Message == Resources.EventSourceService_Read_Timeout)
+                    {
+                        _logger.InfoFormat("Encountered an error connecting to EventSource: {0}", e, e.Message);
+                    }
+                    else
+                    {
+                        _logger.ErrorFormat("Encountered an error connecting to EventSource: {0}", e, e.Message);
+                    }
+                    _logger.Debug("", e);
                 }
                 catch (Exception e)
                 {
